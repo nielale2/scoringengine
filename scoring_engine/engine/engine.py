@@ -45,6 +45,8 @@ class Engine(object):
         self.last_round = False
         self.rounds_run = 0
 
+        self.paused = self.config.paused
+
         signal.signal(signal.SIGINT, partial(engine_sigint_handler, obj=self))
         signal.signal(signal.SIGTERM, partial(engine_sigint_handler, obj=self))
 
@@ -126,6 +128,11 @@ class Engine(object):
             logger.info("Running engine for unlimited rounds")
         else:
             logger.info("Running engine for {0} round(s)".format(self.total_rounds))
+
+        if self.paused:
+            logger.info("Engine is paused. Waiting for user to start/resume...")
+            logger.info("Sleeping for 15 seconds...")
+            self.sleep(15)
 
         while not self.is_last_round():
             self.current_round += 1

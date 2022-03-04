@@ -15,6 +15,10 @@ class ConfigLoader(object):
             "debug", self.parser["OPTIONS"]["debug"].lower() == "true", "bool"
         )
 
+        self.paused = self.parse_sources(
+            "debug", self.parser["OPTIONS"]["paused"].lower() == "true", "bool"
+        )
+
         self.checks_location = self.parse_sources(
             "checks_location",
             self.parser["OPTIONS"]["checks_location"],
